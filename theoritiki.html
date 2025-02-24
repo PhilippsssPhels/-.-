@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Θεωρητικές Σπουδές</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4e4d7;
+            color: #4a1c40;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #8b0000;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #5a3d2b;
+        }
+
+        .box-container {
+            background-color: #fff8e1;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .content {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #5a3d2b;
+        }
+
+        .input-field {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1.2em;
+            border: 2px solid #8b0000;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #fdf5e6;
+        }
+
+        .input-field:focus {
+            border-color: #5a3d2b;
+        }
+
+        .calculate-btn {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #b8860b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #8b0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .result {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Θεωρητικές Σπουδές</h1>
+    <h2>Καλωσορίσατε στο τμήμα θεωρητικών σπουδών</h2>
+
+    <div class="box-container">
+        <div class="content">
+            <p>Η σχολή θεωρητικών σπουδών προσφέρει πλούσιες ευκαιρίες μάθησης στους τομείς της ιστορίας, της φιλοσοφίας, της λογοτεχνίας και της κοινωνιολογίας.</p>
+            <p>Οι σπουδαστές αναπτύσσουν κριτική σκέψη, εμβαθύνουν στην πολιτισμική ανάλυση και κατανοούν την εξέλιξη των ιδεών.</p>
+        </div>
+        
+        <div>
+            <h3>Εισάγετε τους βαθμούς σας για να υπολογίσετε τον Μ.Ο.:</h3>
+            
+            <input type="number" class="input-field" id="grade1" placeholder="Ιστορία" min="1" max="20" step="0.1" onkeydown="moveToNext(event, 'grade2')" />
+            <input type="number" class="input-field" id="grade2" placeholder="Αρχαία Ελληνικά" min="1" max="20" step="0.1" onkeydown="moveToNext(event, 'grade3')" />
+            <input type="number" class="input-field" id="grade3" placeholder="Λατινικά" min="1" max="20" step="0.1" onkeydown="moveToNext(event, 'grade4')" />
+            <input type="number" class="input-field" id="grade4" placeholder="Έκθεση" min="1" max="20" step="0.1" />
+            
+            <button class="calculate-btn" onclick="calculateAverage()">Υπολογισμός Μ.Ο.</button>
+            
+            <div class="result" id="result"></div>
+            
+            <button class="back-btn" onclick="goBack()">Επιστροφή</button>
+        </div>
+    </div>
+
+    <script>
+        function moveToNext(event, nextFieldId) {
+            if (event.key === 'Enter') {
+                document.getElementById(nextFieldId).focus();
+            }
+        }
+
+        function calculateAverage() {
+            var grade1 = parseFloat(document.getElementById("grade1").value);
+            var grade2 = parseFloat(document.getElementById("grade2").value);
+            var grade3 = parseFloat(document.getElementById("grade3").value);
+            var grade4 = parseFloat(document.getElementById("grade4").value);
+
+            if (grade1 >= 1 && grade1 <= 20 && grade2 >= 1 && grade2 <= 20 && grade3 >= 1 && grade3 <= 20 && grade4 >= 1 && grade4 <= 20) {
+                var average = (grade1 + grade2 + grade3 + grade4) / 4;
+
+                var resultText = "Ο Μέσος Όρος είναι: " + average.toFixed(1);
+                var resultElement = document.getElementById("result");
+                
+                if (average >= 10) {
+                    resultElement.style.color = "#2ecc71";
+                } else {
+                    resultElement.style.color = "#f39c12"; 
+                }
+                
+                resultElement.textContent = resultText;
+            } else {
+                document.getElementById("result").textContent = "Παρακαλώ εισάγετε έγκυρους βαθμούς (1-20).";
+                document.getElementById("result").style.color = "#8b0000";
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>

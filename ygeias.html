@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Επιστήμες Υγείας</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #1a73e8;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #2e7d32;
+        }
+
+        .box-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .content {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #444;
+        }
+
+        .input-field {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1.2em;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-field:focus {
+            border-color: #1a73e8;
+        }
+
+        .calculate-btn {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .result {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Επιστήμες Υγείας</h1>
+    <h2>Καλωσορίσατε στο τμήμα επιστημών υγείας</h2>
+
+    <div class="box-container">
+        <div class="content">
+            <p>Οι επιστήμες υγείας καλύπτουν τομείς όπως η Ιατρική, η Βιολογία, η Φαρμακευτική και η Νοσηλευτική.</p>
+            <p>Οι φοιτητές αποκτούν γνώσεις και δεξιότητες που συμβάλλουν στη βελτίωση της υγείας και της ευημερίας της κοινωνίας.</p>
+        </div>
+        
+        <div>
+            <h3>Εισάγετε τους βαθμούς σας για να υπολογίσετε τον Μ.Ο.:</h3>
+            
+            <input type="number" class="input-field" id="grade1" placeholder="Χημεία" min="1" max="20" step="0.1" onkeydown="moveToNext(event, 'grade2')" />
+            <input type="number" class="input-field" id="grade2" placeholder="Φυσική" min="1" max="20" step="0.1" onkeydown="moveToNext(event, 'grade3')" />
+            <input type="number" class="input-field" id="grade3" placeholder="Έκθεση" min="1" max="20" step="0.1" onkeydown="moveToNext(event, 'grade4')" />
+            <input type="number" class="input-field" id="grade4" placeholder="Βιολογία" min="1" max="20" step="0.1" />
+            
+            <button class="calculate-btn" onclick="calculateAverage()">Υπολογισμός Μ.Ο.</button>
+            
+            <div class="result" id="result"></div>
+            
+            <button class="back-btn" onclick="goBack()">Επιστροφή</button>
+        </div>
+    </div>
+
+    <script>
+        function moveToNext(event, nextFieldId) {
+            if (event.key === 'Enter') {
+                document.getElementById(nextFieldId).focus();
+            }
+        }
+
+        function calculateAverage() {
+            var grade1 = parseFloat(document.getElementById("grade1").value);
+            var grade2 = parseFloat(document.getElementById("grade2").value);
+            var grade3 = parseFloat(document.getElementById("grade3").value);
+            var grade4 = parseFloat(document.getElementById("grade4").value);
+
+            if (grade1 >= 1 && grade1 <= 20 && grade2 >= 1 && grade2 <= 20 && grade3 >= 1 && grade3 <= 20 && grade4 >= 1 && grade4 <= 20) {
+                var average = (grade1 + grade2 + grade3 + grade4) / 4;
+
+                var resultText = "Ο Μέσος Όρος είναι: " + average.toFixed(1);
+                var resultElement = document.getElementById("result");
+                
+                if (average >= 10) {
+                    resultElement.style.color = "#2ecc71";
+                } else {
+                    resultElement.style.color = "#f39c12";
+                }
+                
+                resultElement.textContent = resultText;
+            } else {
+                document.getElementById("result").textContent = "Παρακαλώ εισάγετε έγκυρους βαθμούς (1-20).";
+                document.getElementById("result").style.color = "#d32f2f";
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>
